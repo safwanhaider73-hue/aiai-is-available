@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Safwan AI</title>
+<style>
+:root{--bg:#0f1115;--panel:#171a21;--card:#20242d;--text:#f4f5f7;--muted:#aeb4c0;--accent:#d7a84f;--danger:#d95c5c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+.app{max-width:900px;margin:auto;min-height:100vh;padding:22px}
+header{display:flex;align-items:center;gap:14px;margin-bottom:22px}.logo{width:58px;height:58px;border-radius:16px;background:linear-gradient(135deg,#d7a84f,#8d6220);display:grid;place-items:center;font-size:29px;font-weight:bold;color:#151515}
+h1{margin:0;font-size:25px}header p{margin:5px 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:var(--card);border:1px solid #303540;border-radius:15px;padding:17px;min-height:125px}.card h2{font-size:17px;margin:0 0 8px}.card p{color:var(--muted);line-height:1.55;margin:0}
+.chat{margin-top:16px;background:var(--panel);border:1px solid #303540;border-radius:15px;padding:16px}.messages{min-height:110px}.msg{padding:12px;border-radius:12px;margin-bottom:10px;line-height:1.55}.ai{background:#20242d}.user{background:#2b2519}
+.row{display:flex;gap:8px;margin-top:10px}.row input{flex:1;background:#0f1115;color:white;border:1px solid #3a404c;border-radius:11px;padding:13px;font-size:16px}.row button,.danger{border:0;border-radius:11px;padding:12px 16px;font-weight:bold;cursor:pointer}.row button{background:var(--accent);color:#17120a}.danger{margin-top:14px;background:#3a1d20;color:#ffb0b0;border:1px solid #69353a}
+.status{display:flex;align-items:center;justify-content:space-between;margin-top:16px;background:#14171d;border-radius:12px;padding:13px}.green{color:#78d39a}.warning{color:#f0c66b}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.app{padding:14px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header>
+<div class="logo">S</div>
+<div><h1>Safwan AI</h1><p>مساعدك الشخصي — النسخة التجريبية 1.0</p></div>
+</header>
+
+<div class="grid">
+<section class="card"><h2>🛒 التجارة الإلكترونية</h2><p>البحث عن منتجات، دراسة المنافسة، حساب الربح واقتراح فرص قابلة للاختبار.</p></section>
+<section class="card"><h2>🫙 مشروع الأغذية</h2><p>تسويق المكدوس ودبس الفليفلة والزيت والبحث عن عملاء وتجار ومطاعم محتملين.</p></section>
+<section class="card"><h2>💹 التداول</h2><p>تحليل واقتراحات فقط. ميزانية تجريبية محددة: <b>30€</b>. لا تنفيذ تلقائي.</p></section>
+<section class="card"><h2>🔎 البحث والتحليل</h2><p>جمع المعلومات، المقارنة، التحقق، وتلخيص النتائج.</p></section>
+<section class="card"><h2>📄 المستندات</h2><p>شرح وترجمة وتحليل الملفات التي تسمح بها.</p></section>
+<section class="card"><h2>🔐 الخصوصية</h2><p>لا مشاركة للبيانات الحساسة ولا إجراء مالي أو خارجي حساس دون موافقة.</p></section>
+</div>
+
+<div class="status"><span>حالة الوكيل: <b class="green" id="status">مفعّل</b></span><span>Trading limit: <b>30€</b></span></div>
+
+<section class="chat">
+<div class="messages" id="messages">
+<div class="msg ai">مرحبًا. أنا <b>Safwan AI</b>. هذه نسخة تجريبية آمنة. اكتب لي أول مهمة تريد اختبارها.</div>
+</div>
+<div class="row">
+<input id="input" placeholder="مثال: ابحث لي عن فكرة منتج مربح في ألمانيا">
+<button id="send">إرسال</button>
+</div>
+<button class="danger" id="pause">⏸ إيقاف الوكيل</button>
+</section>
+</main>
+<script>
+const input=document.getElementById('input'), messages=document.getElementById('messages'), status=document.getElementById('status'), pause=document.getElementById('pause');
+function send(){const t=input.value.trim();if(!t)return;messages.insertAdjacentHTML('beforeend',`<div class="msg user">${t.replaceAll('<','&lt;')}</div>`);messages.insertAdjacentHTML('beforeend',`<div class="msg ai">تم استلام المهمة. في هذه النسخة التجريبية لا أملك بعد صلاحيات خارجية أو وصولًا إلى حساباتك. سأتعامل مع المهام الحساسة وفق قاعدة: <b>أحلل وأقترح، وأطلب موافقتك قبل التنفيذ.</b></div>`);input.value='';messages.scrollTop=messages.scrollHeight}
+document.getElementById('send').onclick=send;input.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
+pause.onclick=()=>{const off=status.textContent==='متوقف';status.textContent=off?'مفعّل':'متوقف';status.className=off?'green':'warning';pause.textContent=off?'⏸ إيقاف الوكيل':'▶ تشغيل الوكيل'};
+</script>
+</body>
+</html>

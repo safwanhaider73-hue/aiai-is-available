@@ -1,13 +1,5 @@
-FROM debian:bookworm
+FROM httpd:2.4
 
-RUN apt-get update && \
-    apt-get install -y apache2 && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY . /var/www/html/
-
-RUN rm -f /var/www/html/index.html
+COPY . /usr/local/apache2/htdocs/
 
 EXPOSE 80
-
-CMD ["apachectl", "-D", "FOREGROUND"]
